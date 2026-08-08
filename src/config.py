@@ -25,7 +25,7 @@ CLASSIFICATION_REPORT_PATH = os.path.join(RESULTS_DIR, "classification_report.tx
 # ---------------------------------------------------------------------------
 # Dataset
 # ---------------------------------------------------------------------------
-HF_DATASET_NAME = "myleslinder/crema-d"
+HF_DATASET_NAME = "AbstractTTS/CREMA-D"
 SAMPLE_RATE = 16000
 
 LABELS = ["anger", "disgust", "fear", "happy", "neutral", "sad"]

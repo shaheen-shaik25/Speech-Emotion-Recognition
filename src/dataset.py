@@ -1,18 +1,40 @@
 """
 Dataset loading and PyTorch Dataset/DataLoader utilities for CREMA-D.
+
+Note: AbstractTTS/CREMA-D on the Hugging Face Hub ships as a single
+"train" split with a string label column called `major_emotion`
+(values: anger, disgust, fear, happy, neutral, sad) rather than an
+integer `label` column, and with no pre-made test split. This module
+maps the string label to the integer ids in src.config.LABEL2ID and
+carves out a held-out test split ourselves.
 """
 
 import torch
 from torch.utils.data import Dataset
 from datasets import load_dataset
 
-from src.config import HF_DATASET_NAME, SAMPLE_RATE
+from src.config import HF_DATASET_NAME, SAMPLE_RATE, LABEL2ID, TRAIN_TEST_SPLIT, RANDOM_SEED
 
 
 def load_crema_d():
-    """Load the CREMA-D dataset from the Hugging Face Hub."""
+    """
+    Load the CREMA-D dataset from the Hugging Face Hub and return a
+    dict-like object with "train" and "test" splits, each carrying an
+    integer `label` column derived from `major_emotion`.
+    """
     dataset = load_dataset(HF_DATASET_NAME)
-    return dataset
+
+    # This mirror only ships a single "train" split.
+    full = dataset["train"]
+
+    def add_label(example):
+        example["label"] = LABEL2ID[example["major_emotion"].lower()]
+        return example
+
+    full = full.map(add_label)
+
+    split = full.train_test_split(test_size=TRAIN_TEST_SPLIT, seed=RANDOM_SEED)
+    return split  # dict-like with "train" and "test" keys
 
 
 class SpeechEmotionDataset(Dataset):
