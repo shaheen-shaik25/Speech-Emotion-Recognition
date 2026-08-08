@@ -1,0 +1,3 @@
+Placeholder — this file is generated automatically by `python -m src.evaluate`
+after training. Run evaluation to populate it with real precision/recall/F1
+scores per emotion class.
