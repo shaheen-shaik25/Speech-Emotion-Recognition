@@ -178,16 +178,6 @@ python -m src.predict path/to/audio.wav
 streamlit run app/app.py
 ```
 
-## Baseline Comparison
-
-| Model | Accuracy | F1 |
-|---|---|---|
-| MFCC + Random Forest | _fill in_ | _fill in_ |
-| CNN/LSTM | _fill in_ | _fill in_ |
-| Wav2Vec2 (fine-tuned) | _fill in_ | _fill in_ |
-
-*Fill in with actual experiment results — do not fabricate numbers.*
-
 ## Research Component
 
 Base paper: **wav2vec 2.0: A Framework for Self-Supervised Learning of Speech Representations**
@@ -246,6 +236,3 @@ Example: a user says *"I'm really frustrated with this!"* → emotion detected a
 
 An extended version could combine Wav2Vec2 (emotion) with Whisper (speech-to-text) feeding into an NLP response module for a full emotion-aware speech assistant.
 
-## License
-
-MIT (or your preferred license).
